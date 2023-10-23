@@ -24,4 +24,19 @@
         <toc-element topic="Synchroninzed.md"/>
         <toc-element topic="thread_status.md"/>
     </toc-element>
+    <toc-element topic="SpringBoot.md">
+        <toc-element topic="spring-family.md"/>
+        <toc-element topic="fast-guide.md"/>
+        <toc-element topic="basic-configure.md"/>
+        <toc-element topic="spring-ioc-core.md"/>
+        <toc-element topic="condition-attribute.md"/>
+    </toc-element>
+    <toc-element topic="libs.md">
+        <toc-element topic="BCrypt-password-encoder.md"/>
+        <toc-element topic="Lombok.md"/>
+        <toc-element topic="JWT.md"/>
+        <toc-element topic="TOTP.md"/>
+        <toc-element topic="excel.md"/>
+        <toc-element topic="easy-rule.md"/>
+    </toc-element>
 </instance-profile>
