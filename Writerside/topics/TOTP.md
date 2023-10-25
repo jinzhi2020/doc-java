@@ -83,7 +83,10 @@ System.out.println("currentCode = " + currentCode);     // 087543
 
 后端拼接返回前端下面这个 URL，或者返回 SecretKey 前端自定拼接即可:
 ```java
-http://api.qrserver.com/v1/create-qr-code/?data=QXWVOYIP6SJTAGZX2JKV2FECHZYN2TIP!&size=250x250
+// 拼接字符串
+otpauth://totp/<系统或用户信息>?secret=<密钥>
+// 将上面的字符串拼接到下面的 data 参数中
+http://api.qrserver.com/v1/create-qr-code/?data=<此处替换>!&size=250x250
 ```
 
 其中 `QXWVOYIP6SJTAGZX2JKV2FECHZYN2TIP` 是我们之前生成的 SecretKey。可以通过 URL 中的 size 参数指定生成的二维码图片大小。

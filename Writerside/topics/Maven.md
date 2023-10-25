@@ -6,7 +6,7 @@ Maven 是 Apache 基金会开发的顶级开源项目，为项目工程管理的
 Apache 软件基金会(Apache Software Foundation)， 是专门为支持开源项目而办的一个非盈利性组织。在它所支持的 Apache 项目与子项目中，所发行的软件产品都遵循 Apache 许可证(Apache License)。
 </note>
 
-## 核心特性 ##
+## 核心特性 {id="core_futures"}
 
 Maven 的核心特性如下所示：
 
@@ -14,7 +14,7 @@ Maven 的核心特性如下所示：
 * 强大的依赖管理，项目依赖组件自动下载，自动更新
 * 可扩展的插件机制，使用简单，功能丰富
 
-## 安装和配置 ##
+## 安装和配置 {id="install_configure"}
 
 下载安装使用 Maven 需要满足一些前提条件：
 
@@ -28,7 +28,7 @@ brew install maven
 mvn --version
 ```
 
-## 依赖管理 ##
+## 依赖管理 {id="dep_manager"}
 
 Maven 利用 dependency自动下载并管理第三方的 Jar。从远程的 Apache 的中央仓库进行下载到本地仓库，在工程中进行引用。
 
@@ -73,9 +73,10 @@ char word = '虎';
 System.out.println(Arrays.toString(PinyinHelper.toHanyuPinyinStringArray(word)));
 ```
 
-## 使用国内镜像仓库 ##
+## 使用国内镜像仓库 {id="use_china_image_repos"}
 
 在国内下载的过程总是漫长的等待，我们可以使用阿里云镜像仓库，配置方法就是在项目的pom.xml配置文件中加入如下配置:
+
 ```xml
 <repositories>
   <repository>
@@ -86,13 +87,14 @@ System.out.println(Arrays.toString(PinyinHelper.toHanyuPinyinStringArray(word)))
 </repositories>
 ```
 
-## 本地仓库和中央仓库 ##
+
+## 本地仓库和中央仓库 {id="local_and_center_repository"}
 
 本地仓库就像是本的缓存一般，Maven 会先从本地仓库中查找，具体如下图所示:
 
 <img src="http://file-linker.oss-cn-hangzhou.aliyuncs.com/wj9jI3MHy5C3s73aBQmw.jpg" alt="local&&center" />
 
-## 生命周期 ##
+## 生命周期 {id="life_cycle"}
 
 Maven 在不同的生命周期为我们提供了不同的命令，常用的如下表所示:
 
@@ -144,7 +146,7 @@ Maven 在不同的生命周期为我们提供了不同的命令，常用的如�
 </dependency>
 ```
 
-## 插件 ##
+## 插件 {id="plugins"}
 
 要使用 Maven 的插件，首先我们先配置插件仓库的国内镜像，这个和之前的阿里云镜像地址是一样的，配置如下:
 ```xml
@@ -185,7 +187,7 @@ Maven 在不同的生命周期为我们提供了不同的命令，常用的如�
 
 <img src="http://file-linker.oss-cn-hangzhou.aliyuncs.com/PtfzXWiEl0r3KX4pTYih.png" alt="plugins" />
 
-## 聚合工程 ##
+## 聚合工程 {id="project"}
 
 关于聚合工程，需要注意下面几点:
 

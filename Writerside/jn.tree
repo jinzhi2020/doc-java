@@ -35,6 +35,7 @@
         <toc-element topic="BCrypt-password-encoder.md"/>
         <toc-element topic="Lombok.md"/>
         <toc-element topic="JWT.md"/>
+        <toc-element topic="Spring-State-Machine.md"/>
         <toc-element topic="TOTP.md"/>
         <toc-element topic="excel.md"/>
         <toc-element topic="easy-rule.md"/>

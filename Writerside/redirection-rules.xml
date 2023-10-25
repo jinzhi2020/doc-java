@@ -10,4 +10,8 @@
         <description>Created after removal of "This is the first topic" from Help Instance</description>
         <accepts>Default-topic.html</accepts>
     </rule>
+    <rule id="2154d270">
+        <description>Created after removal of "Lamdba" from Java Note</description>
+        <accepts>Lamdba2.html</accepts>
+    </rule>
 </rules>

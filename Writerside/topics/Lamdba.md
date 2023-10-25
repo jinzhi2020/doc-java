@@ -54,7 +54,7 @@ names.sort(String::compareTo);
 Optional.of(numbers).orElseGet(ArrayList::new);
 ```
 
-## 写法示例 ##
+## 写法示例
 
 Lamdba 表示式就是对实现类的简化写法。比如说定义一个四则运算的接口如下:
 ```Java
@@ -77,7 +77,7 @@ System.out.println(subtraction.operate(4, 2)); // 输出: 2.0
 注意: Lamdba 表达式对实现的接口是有严格要求的: 只能实现有且只有一个抽象方法的接口，这种接口称之为 “函数式接口”。
 </warning>
 
-## @FunctionalInterface 接口 ##
+## @FunctionalInterface 接口
 
 如果你去看 JDK 中的函数式接口的源码的话，都会在接口的上方看到一个名为`@FunctionalInterface` 的注解。这个注解对于代码本身来说并没有任何影响，加上或者不加上都是一样的。
 ```Java
@@ -86,7 +86,7 @@ public interface Function<T, R> {}
 ```
 这个注解是给编译器看的，编译器看到之后就会去检查你这个接口是否为函数式接口，是否有且只有一个抽象方法。
 
-## 函数式编程 ##
+## 函数式编程
 
 函数式编程的核心在于，让函数称为和类一样的一等公民，可以定义为变量、可以在函数之间传递。关于函数式编程和面向对象编程的区别，如下表所示:
 
@@ -209,20 +209,20 @@ Stream<String> s = Stream.of(languages);
 s.forEach(System.out::println);
 ```
 第二种方法是基于 List 进行创建:
-<code-block collapsed-title-line-number="1" lang="java">
+```Java
 List<String> list = new ArrayList<>();
 list.add("Java");
 list.add("c");
 list.add("VB");
 list.stream().sorted().forEach(System.out::println); // 输出: Java VB c
-</code-block>
+```
 
 第三种方法是利用 Generate 方法来创建无限长度的流。下面的例子展现了生成无限随机数的例子:
-<code-block collapsed-title-line-number="1" lang="java">
+```Java
 Stream<Integer> generator = Stream.generate(() -> new Random().nextInt(100000));
 generator.forEach(System.out::println); // 无限输出: 32135 40533 51978 .......
 generator.limit(10).forEach(System.out::println); // 输出十个: 32135 40533 51978 .......
-</code-block>
+```
 
 第四种方法是基于迭代器创建, 下面的例子输出了 10 个奇数:
 ```Java
