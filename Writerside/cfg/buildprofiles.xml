@@ -7,7 +7,7 @@
         <algolia-index>java</algolia-index>
         <algolia-api-key>75fa1d8eb9365f1123fc2ae6bbd6ac5f</algolia-api-key>
     </variables>
-    <build-profile instance="hi">
+    <build-profile instance="jn">
         <variables>
             <noindex-content>true</noindex-content>
         </variables>
