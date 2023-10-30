@@ -1,6 +1,7 @@
 # Spring State Machine
 
-在开发中，我们总是要和各种状态打交道，比如游戏状态、订单状态。在处理这些状态的编码中，经常容易出错，并且状态和业务逻辑耦合在一起，并不容易扩展。所以这篇文档介绍了在项目中使用 Spring State Machine 这个库，引入状态机的概念去管理业务中的各种状态。
+在开发中，我们总是要和各种状态打交道，比如游戏状态、订单状态。在处理这些状态的编码中，经常容易出错，并且状态和业务逻辑耦合在一起，并不容易扩展。所以这篇文档介绍了在项目中使用
+Spring State Machine 这个库，引入状态机的概念去管理业务中的各种状态。
 
 ## 什么是状态机 {id="what"}
 
@@ -16,7 +17,8 @@
 
 其中，有限状态机（Finite State Machine, FSM）是状态机中的一个特殊子集，其中的状态数量是有限的。FSM在计算机科学和电气工程中有广泛的应用，包括在硬件设计、解析器、正则表达式和某些类型的算法中。
 
-简单来说，**在软件领域，所谓的状态机就是将状态、状态的转换从业务逻辑中抽离出来，然后通过事件驱动的方式去触发状态的流转。使得状态和业务代码松耦合、可扩展。**
+简单来说，**在软件领域，所谓的状态机就是将状态、状态的转换从业务逻辑中抽离出来，然后通过事件驱动的方式去触发状态的流转。使得状态和业务代码松耦合、可扩展。
+**
 
 ## 状态机和状态设计模式 {id="diff"}
 
@@ -48,7 +50,9 @@
 
 ### Install {id="install"}
 
-Spring State Machine 主要有 v2 和 v3 两个版本。主要的区别是 v3 加入了响应式的实现。v2 使用的最为广泛，而 v3 在部分 API 上并不兼容 v2 版本，且网上几乎没有参考资料，但是官网文档写的非常详细了。这篇文档使用的是 v3 版本，下面介绍使用 Maven 来安装:
+Spring State Machine 主要有 v2 和 v3 两个版本。主要的区别是 v3 加入了响应式的实现。v2 使用的最为广泛，而 v3 在部分 API
+上并不兼容 v2 版本，且网上几乎没有参考资料，但是官网文档写的非常详细了。这篇文档使用的是 v3 版本，下面介绍使用 Maven 来安装:
+
 ```xml
 <!-- https://mvnrepository.com/artifact/org.springframework.statemachine/spring-statemachine-starter -->
 <dependency>
@@ -67,7 +71,9 @@ Spring State Machine 主要有 v2 和 v3 两个版本。主要的区别是 v3 �
 
 ### 状态以及事件的定义 {id="defined"}
 
-Spring State Machine 支持通过字符串和枚举两种方式定义状态以及事件。这里采用枚举的方式，相对于字符串更方便维护。首先我们需要定义状态以及事件的枚举类:
+Spring State Machine
+支持通过字符串和枚举两种方式定义状态以及事件。这里采用枚举的方式，相对于字符串更方便维护。首先我们需要定义状态以及事件的枚举类:
+
 ```Java
 @Getter
 @AllArgsConstructor
@@ -93,7 +99,9 @@ public enum GameStatusEnum {
     private final String value;
 }
 ```
+
 接着定义事件的枚举:
+
 ```Java
 @Getter
 @AllArgsConstructor
@@ -101,11 +109,14 @@ public enum PromotionGameEventEnum {
     STARTED, COMPLETED;
 }
 ```
-我们定义了两个事件， STARTED 表示游戏开始，此时状态将会从NEVER_START 流转到 STARTED 。COMPLETED 表示游戏结束，此时状态将会从 STARTED 流转到 END 。
+
+我们定义了两个事件， STARTED 表示游戏开始，此时状态将会从NEVER_START 流转到 STARTED 。COMPLETED 表示游戏结束，此时状态将会从
+STARTED 流转到 END 。
 
 ### 状态机的配置 {id="configure"}
 
 首先我们需要创建一个配置类:
+
 ```Java
 @Configuration
 @AllArgsConstructor
@@ -123,7 +134,8 @@ public class GameStatemachineConfiguration
 }
 ```
 
-我们定义了一个配置类，名为 `GameStatemachineConfiguration` ，并且继承了 `EnumStateMachineConfigurerAdapter` ，接受两个泛型参数, 分别是状态以及事件的枚举。
+我们定义了一个配置类，名为 `GameStatemachineConfiguration` ，并且继承了 `EnumStateMachineConfigurerAdapter` ，接受两个泛型参数,
+分别是状态以及事件的枚举。
 
 - `@EnableStateMachineFactory` 这个注解表示启用状态机工厂，当我们需要在代码中创建多个状态机实例的时候，就需要使用这个注解，比如根据不同的游戏创建不同的状态机、根据不同的订单创建不同的状态机。
 - `machineId` 表示配置状态机的ID。
@@ -139,6 +151,7 @@ public class GameStatemachineConfiguration
 ### 状态流转的配置 {id="transfer"}
 
 配置了状态机之后，我们需要对状态机中状态的流转进行配置，如下:
+
 ```Java
 /**
  * 配置状态机状态转换
@@ -158,7 +171,8 @@ public void configure(StateMachineTransitionConfigurer<PromotionUserGameStatusEn
 }
 ```
 
-通过 `source` 和 `target` 我们定义了一组状态的流转，第 9 行，定义了状态从 `NEVER_START` 流转到 `STARTED` ，通过 `event(GameEventEnum.STARTED)` 事件触发，并且在状态流转之后执行 `action` 操作，输出一行打印。
+通过 `source` 和 `target` 我们定义了一组状态的流转，第 9 行，定义了状态从 `NEVER_START` 流转到 `STARTED`
+，通过 `event(GameEventEnum.STARTED)` 事件触发，并且在状态流转之后执行 `action` 操作，输出一行打印。
 
 这几行配置可以清楚的展示使用状态机的优势：
 
@@ -166,7 +180,8 @@ public void configure(StateMachineTransitionConfigurer<PromotionUserGameStatusEn
 
 - 状态可扩展，通过配置，我们可以快速、安全的配置状态的流转、状态流转后的事件。
 
-上面的代码展示了当我们开始游戏之后，触发了 `STARTED` 事件，然后向状态机发送了一个 `Message` ,这个 `Message` 中包含了必要的参数，游戏 ID 和用户 ID。
+上面的代码展示了当我们开始游戏之后，触发了 `STARTED` 事件，然后向状态机发送了一个 `Message` ,这个 `Message` 中包含了必要的参数，游戏
+ID 和用户 ID。
 
 需要着重说明的是下面这两个方法:
 
@@ -175,9 +190,11 @@ public void configure(StateMachineTransitionConfigurer<PromotionUserGameStatusEn
 
 ### 状态机的持久化 {id="persistence"}
 
-上面以及提到了状态机实例的状态需要持久化。官方给出了 JPA 的实现。这个就不说了，可以参考官方文档。这里给出在 MyBatis 、或者其他 ORM 中的实现。持久化是最容易出错，也是最难排查错误的地方。
+上面以及提到了状态机实例的状态需要持久化。官方给出了 JPA 的实现。这个就不说了，可以参考官方文档。这里给出在 MyBatis 、或者其他
+ORM 中的实现。持久化是最容易出错，也是最难排查错误的地方。
 
 配置持久化，上文我们已经配置了状态机，然后在上文的配置中，加入对持久化的配置:
+
 ```Java
 private final StateMachineRuntimePersister<GameStatusEnum, GameEventEnum, String>
      stateMachinePersist;
@@ -188,6 +205,7 @@ public void configure(StateMachineConfigurationConfigurer<PromotionUserGameStatu
 ```
 
 其中 `stateMachinePersist` 的代码如下:
+
 ```Java
 @Configuration
 @AllArgsConstructor
@@ -208,7 +226,10 @@ public class MyBatisPersistingConfiguration {
     }
 }
 ```
-它继承了StateMachinePersist 的接口。另外我们需要实现一个拦截器，当状态流转的时候，会调用改拦截器的 read 方法来恢复状态、调用write 方法来持久化状态。
+
+它继承了StateMachinePersist 的接口。另外我们需要实现一个拦截器，当状态流转的时候，会调用改拦截器的 read 方法来恢复状态、调用write
+方法来持久化状态。
+
 ```Java
 public class MyBatisPersistingStateMachineInterceptor<S, E, T> extends AbstractPersistingStateMachineInterceptor<S, E, T> implements StateMachineRuntimePersister<S, E, T> {
 
@@ -234,12 +255,16 @@ public class MyBatisPersistingStateMachineInterceptor<S, E, T> extends AbstractP
     }
 }
 ```
+
 它接收一个Persist 的实现，就是 `MyBatisStateMachineRepository` 的代码如下:
+
 ```Java
 public interface MyBatisStateMachineRepository<S, E, T> extends StateMachinePersist<S, E, T> {
 }
 ```
+
 最后我们实现 MyBatis 持久化:
+
 ```Java
 @Component
 @AllArgsConstructor
@@ -271,6 +296,102 @@ public class InDatabaseUserStateMachinePersist implements MyBatisStateMachineRep
 }
 ```
 
+## 难以排查的问题 {id="problems"}
+
+使用 SSM，最多的时间用在了排查问题上。不像是自己在业务代码中维护状态，可以通过断点一步步排查出问题。SSM
+优雅的背后是深度的抽象，这也导致了部分问题难以排查。
+
+### 使用 Listener
+
+配置 Listener 的代码如下,不管用不用到 Listener，都要配置好并输出每个状态流转的事件信息，在开发初期用以排查问题:
+
+```Java
+@Override
+public void configure(StateMachineConfigurationConfigurer<PromotionUserGameStatusEnum, PromotionGameEventEnum> config) throws Exception {
+    config.withConfiguration().machineId("USER")
+            .listener(new GameStateMachineListener());
+}
+```
+
+然后编写名为 `GameStateMachineListener` 的类，完整代码如下:
+```Java
+public class GameStateMachineListener extends StateMachineListenerAdapter<PromotionUserGameStatusEnum, PromotionGameEventEnum> {
+
+    @Override
+    public void stateChanged(State<PromotionUserGameStatusEnum, PromotionGameEventEnum> from, State<PromotionUserGameStatusEnum, PromotionGameEventEnum> to) {
+        System.out.println("状态变更: " + from + " -> " + to);
+    }
+
+    @Override
+    public void stateEntered(State<PromotionUserGameStatusEnum, PromotionGameEventEnum> state) {
+        System.out.println("状态进入: " + state);
+    }
+
+    @Override
+    public void stateExited(State<PromotionUserGameStatusEnum, PromotionGameEventEnum> state) {
+        System.out.println("状态退出: " + state);
+    }
+
+    @Override
+    public void transition(Transition<PromotionUserGameStatusEnum, PromotionGameEventEnum> transition) {
+        System.out.println("状态转换: " + transition);
+    }
+
+    @Override
+    public void transitionStarted(Transition<PromotionUserGameStatusEnum, PromotionGameEventEnum> transition) {
+        System.out.println("状态转换开始: " + transition);
+    }
+
+    @Override
+    public void transitionEnded(Transition<PromotionUserGameStatusEnum, PromotionGameEventEnum> transition) {
+        System.out.println("状态转换结束: " + transition);
+    }
+
+    @Override
+    public void stateMachineStarted(StateMachine<PromotionUserGameStatusEnum, PromotionGameEventEnum> stateMachine) {
+        System.out.println("状态机启动: " + stateMachine);
+    }
+
+    @Override
+    public void stateMachineStopped(StateMachine<PromotionUserGameStatusEnum, PromotionGameEventEnum> stateMachine) {
+        System.out.println("状态机停止: " + stateMachine);
+    }
+
+    @Override
+    public void eventNotAccepted(Message<PromotionGameEventEnum> event) {
+        System.out.println("事件不被接受: " + event);
+    }
+
+    @Override
+    public void extendedStateChanged(Object key, Object value) {
+        System.out.println("扩展状态变更: " + key + " -> " + value);
+    }
+
+    @Override
+    public void stateMachineError(StateMachine<PromotionUserGameStatusEnum, PromotionGameEventEnum> stateMachine, Exception exception) {
+        System.out.println("状态机异常: " + stateMachine + " -> " + exception.getMessage());
+    }
+
+    @Override
+    public void stateContext(StateContext<PromotionUserGameStatusEnum, PromotionGameEventEnum> stateContext) {
+        System.out.println("状态上下文: " + stateContext);
+    }
+}
+```
+
+### 不被接受的事件 {id="Not-Accepted"}
+
+在上面的事件中，要格外关注一个名为 `eventNotAccepted` 的事件，因为一旦触发这个事件，如果不知所以然就非常难排查，网上也没有更多资料可以参考。
+可以从如下几个方面来排查:
+
+* source 状态是否和预期一致
+* guard 是否通过
+* action 中是否存在异常
+
+其中第三点最难排查，因为 SSM 在 action 出现异常的时候，也不会将异常信息抛出，而是不会执行状态的流转，触发 `eventNotAccepted` 事件。需要通过在源码中
+打断点的方式，深入十几层的调用栈才能找到异常。
+
 ## 总结 {id="summary"}
 
-这篇文档描述了什么是状态机，如何应用 Spring State Machine 到项目中去。遇到问题，多看官方文档，当发现解决不了的时候，总是什么地方自己理解错了，或者没有理解。这是我在应用状态机的过程中，最大的收获。
+这篇文档描述了什么是状态机，如何应用 Spring State Machine
+到项目中去。遇到问题，多看官方文档，当发现解决不了的时候，总是什么地方自己理解错了，或者没有理解。这是我在应用状态机的过程中，最大的收获。
